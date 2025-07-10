@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body>
+    <h1>Sudoku</h1>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    <form method="post" action="/juego/resolver/">
+        {% csrf_token %}
+        <table>
+            {% for row in board %}
+            <tr>
+                {% for cell in row %}
+                <td>
+                    <input type="text"
+                           name="cell_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}"
+                           value="{% if cell != 0 %}{{ cell }}{% endif %}"
+                           {% if cell != 0 %}readonly{% endif %}
+                           maxlength="1">
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <select name="paradigma" id="paradigma">
+            <option value="imperativo">Imperativo</option>
+            <option value="logico">Lógico</option>
+            <option value="funcional">Funcional</option>
+        </select>
+        <br>
+        <button type="submit" name="acc" value="verificar">Verificar</button>
+        <button type="submit" name="acc" value="completar">Completar</button>
+    </form>
+
+    <a href="/">🔁 Reiniciar</a>
+    <a href="/juego">🏠 Volver</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body>
+    <h1>Menú Sudoku</h1>
+    <h3>Elije el tablero que desees jugar</h3>
+    <form method="post" class="menu-form">
+        {% csrf_token %}
+        <button type="submit" name="tipo" value="aleatorio">Aleatorio</button>
+        <button type="submit" name="tipo" value="predefinido">Predefinido</button>
+    </form>
+</body>
+</html>
