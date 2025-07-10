@@ -60,6 +60,7 @@ def sudoku(request):
                 else:
                     mensaje = "✅ Sudoku válido, pero aún incompleto."
             elif paradigma == 'logico':
+                
                 ruta_plantilla = os.path.join(os.path.dirname(__file__), "plantillaProlog.pl")
                 with open(ruta_plantilla, "r", encoding="utf-8") as f:
                     plantilla = f.read()
@@ -71,6 +72,7 @@ def sudoku(request):
                     archivo.write(codigo_final)
                     ruta_archivo = archivo.name
 
+                print(ruta_archivo)
                 resultado = subprocess.run(
                     ["swipl", "-s", ruta_archivo, "-g", "verificar"],
                     capture_output=True, text=True

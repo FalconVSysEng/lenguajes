@@ -5,4 +5,5 @@ from juego import views
 urlpatterns = [
     path('',views.menu, name='menu'),
     path('resolver/',views.sudoku, name='sudoku')
+    
 ]

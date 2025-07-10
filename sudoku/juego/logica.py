@@ -1,7 +1,7 @@
 import random
 
-# Paradigma IMPERATIVO
 
+# obtener tablero predefinido
 def obtener_tablero():
     return [
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -14,6 +14,44 @@ def obtener_tablero():
         [0, 0, 0, 4, 1, 9, 0, 0, 5],
         [0, 0, 0, 0, 8, 0, 0, 7, 9],
     ]
+
+#obtener tablero aleatorio
+def generar_tablero_completo():
+    tablero = [[0 for _ in range(9)] for _ in range(9)]
+    rellenar(tablero)
+    return tablero
+
+def rellenar(tablero):
+    for i in range(9):
+        for j in range(9):
+            if tablero[i][j] == 0:
+                numeros = list(range(1, 10))
+                random.shuffle(numeros)
+                for num in numeros:
+                    if movimiento_vali(tablero, i, j, num):
+                        tablero[i][j] = num
+                        if rellenar(tablero):
+                            return True
+                        tablero[i][j] = 0
+                return False
+    return True
+
+def borrar_casillas(tablero, cantidad=40):
+    borrados = 0
+    while borrados < cantidad:
+        i = random.randint(0, 8)
+        j = random.randint(0, 8)
+        if tablero[i][j] != 0:
+            tablero[i][j] = 0
+            borrados += 1
+    return tablero
+
+def generar_tablero_aleatorio():
+    tablero_completo = generar_tablero_completo()
+    tablero_con_espacios = borrar_casillas([fila[:] for fila in tablero_completo], cantidad=40)
+    return tablero_con_espacios
+
+# Paradigma IMPERATIVO
 
 def movimiento_vali(board, row, col, num):
     if num in board[row]:
@@ -60,40 +98,7 @@ def resolver_imp(board):
 
 
 # Paradigma funcional
-def generar_tablero_completo():
-    tablero = [[0 for _ in range(9)] for _ in range(9)]
-    rellenar(tablero)
-    return tablero
 
-def rellenar(tablero):
-    for i in range(9):
-        for j in range(9):
-            if tablero[i][j] == 0:
-                numeros = list(range(1, 10))
-                random.shuffle(numeros)
-                for num in numeros:
-                    if movimiento_vali(tablero, i, j, num):
-                        tablero[i][j] = num
-                        if rellenar(tablero):
-                            return True
-                        tablero[i][j] = 0
-                return False
-    return True
-
-def borrar_casillas(tablero, cantidad=40):
-    borrados = 0
-    while borrados < cantidad:
-        i = random.randint(0, 8)
-        j = random.randint(0, 8)
-        if tablero[i][j] != 0:
-            tablero[i][j] = 0
-            borrados += 1
-    return tablero
-
-def generar_tablero_aleatorio():
-    tablero_completo = generar_tablero_completo()
-    tablero_con_espacios = borrar_casillas([fila[:] for fila in tablero_completo], cantidad=40)
-    return tablero_con_espacios
 
 
 def es_valido(tablero, fila, col, num):
