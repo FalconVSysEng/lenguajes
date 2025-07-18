@@ -27,7 +27,7 @@ def sudoku(request):
         board = json.loads(tablero_guardado) if tablero_guardado else obtener_tablero()
         print("Tablero base para reconstrucción (board):", board)
 
-        # ✅ Reconstruye el tablero según inputs del usuario
+        # Reconstruye el tablero 
         new_board = []
         for i in range(9):
             row = []
@@ -37,7 +37,7 @@ def sudoku(request):
                 if value and value.isdigit():
                     row.append(int(value))
                 else:
-                    row.append(board[i][j] if board[i][j] != 0 else 0)  # Mantén las celdas originales
+                    row.append(board[i][j] if board[i][j] != 0 else 0)  
             new_board.append(row)
         print("Tablero reconstruido por el usuario (new_board):", new_board)
 
@@ -144,9 +144,9 @@ def parsear_tablero_prolog(salida):
     tablero = []
     for linea in lineas:
         try:
-            fila = eval(linea)  # Convierte '[5,3,4,...]' en [5,3,4,...]
+            fila = eval(linea)
             if isinstance(fila, list) and len(fila) == 9:
                 tablero.append(fila)
         except:
-            pass  # Ignora líneas que no sean listas válidas
+            pass 
     return tablero if len(tablero) == 9 else None
